@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./dist/vue2.4.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- <input type="button" value="父级" @click="listen"> -->
+		<!-- <com2></com2> -->
+		<com2 @func="show"></com2>
+	</div>
+	<template id="tmpl">
+		<div>
+			<h1>这是子组件</h1>
+			<input type="button" value="这是子组件中的按钮" @click.stop="myclick">
+		</div>
+	</template>
+</body>
+	<script>
+        // var en =new Vue({})
+		var com2 = {
+			template:'#tmpl',
+			data(){
+				return {
+					msg:'这是子组件的数值'
+				}
+			},
+			methods:{
+				myclick() {
+					//这里的传参 其实就是变相的/相当于传值给父组件
+					//子组件通过事件调用向父组件传值
+					this.$emit('func',this.msg)
+					// en.$emit('phone',this.msg)
+				}
+			}
+		}
+
+		var vm = new Vue({
+			el: '#app',
+			data:{
+				msg:''
+			},
+			methods:{
+				show(data) {
+					console.log('调用父组件身上的show方法')
+					this.msg = data;
+				},
+
+				// listen() {
+				// 	console.log("你好");
+				// 	en.$on('phone',(n)=>{
+				// 		console.log(n)
+				// 	})
+				// }
+			},
+			components:{
+				com2
+			}
+		})
+
+	</script>
+</html>

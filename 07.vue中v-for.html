@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./dist/vue2.4.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div>
+			<label for="">
+				<input type="text" v-model='id'>
+			</label>
+			<label for="">
+				<input type="text" v-model='name'>
+			</label>
+
+			<input type="button" value="添加" @click="add">
+
+		</div>
+		<!-- 注意此处的key 保证数据的唯一性 data和view中的数据关联起来 -->
+		<p v-for="item in list" :key="item.id">
+			<input type="checkbox">{{item.id}} --- {{item.name}}
+		</p>
+	</div>
+</body>
+	<script>
+		//数组(item,index)
+		//对象(value,key,index)
+		var vm = new Vue({
+			el: '#app',
+			data:{
+				id:'',
+				name:'',
+				list:[
+					{id:1,name:'李斯'},
+					{id:2,name:'嬴政'},
+					{id:3,name:'赵高'},
+					{id:4,name:'韩非'},
+					{id:5,name:'荀子'}
+				]
+			},
+			methods:{
+				add() {
+					// this.list.push({id:this.id, name:this.name});
+					this.list.unshift({id:this.id, name:this.name});
+				}
+			}
+		})
+
+	</script>
+</html>

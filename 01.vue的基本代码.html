@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue学习</title>
+	<script src="./dist/vue2.4.js"></script>
+</head>
+<body>
+	<!-- V层 -->
+	<div id="app">
+		<p>{{msg}}</p>
+	</div>
+</body>
+<script>
+	// vm就是VM调度者
+	var vm = new Vue({
+		el:"#app", //vue实例控制页面哪个区域
+		//存放el要用到的数据   M层
+		data:{
+			msg:'学习vue'
+		}
+	})
+
+</script>
+</html>

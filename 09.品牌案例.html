@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="./dist/vue2.4.js"></script>
+<link rel="stylesheet" href="./dist/bootstrap.css">
+</head>
+<body>
+
+	<div id="app">
+
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">添加品牌</h3>
+		  </div>
+		  <div class="panel-body form-inline">
+				<label for="">
+					Id:
+					<input type="text" calss="form-control" v-model="id">
+				</label>
+				<label for="">
+					Name:
+					<input type="text" calss="form-control" v-model="name" @keyup.enter="add">
+				</label>
+
+				<input type="button" value="添加" class="btn btn-primary" @click="add">
+
+				<label for="">
+					搜索名称关键字:
+					<input type="text" calss="form-control" v-model="keywords" v-focus v-color="'green'">
+				</label>
+		  </div>
+		</div>
+
+		<table class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Ctime</th>
+					<th>Operation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in search(keywords)" :key="item.id">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.ctime | dateFormat('yyyy-mm-dd')}}</td>
+					<td>
+						<a href="" @click.prevent="del(item.id)">删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+	<script>
+		/*string:padStar padEnd*/
+		Vue.filter('dateFormat', (dateStr,pattern)=>{
+			var dt = new Date(dateStr);
+
+			var y = dt.getFullYear();
+			var m = (dt.getMonth() + 1).toString().padStart(2,'0');
+			var d = dt.getDate().toString().padStart(2,'0');
+
+			if(pattern.toLowerCase() === 'yyyy-mm-dd'){
+				return `${y}-${m}-${d}`;
+			} else {
+				var hh = dt.getHours();
+				var mm = dt.getMinutes();
+				var ss = dt.getSeconds();
+				return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+			}
+		})
+
+		//自定义全局按键修饰符
+		Vue.config.keyCodes.f2 = 113;
+
+		Vue.directive('focus',{
+			bind(el) {
+
+			},
+			inserted(el) {
+				el.focus();
+			},
+			updated(el) {
+
+			}
+		})
+
+		Vue.directive('color',{
+			bind(el,binding) {
+				el.style.color = binding.value;
+			}
+		})
+
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				id:'',
+				name:'',
+				keywords:'',
+				list:[
+					{id:1, name:'奔驰', ctime:new Date()},
+					{id:2, name:'宝马', ctime:new Date()},
+				]
+			},
+			methods:{
+				/*arr:some findIndex filter forEach*/
+				add() {
+					var car = {id:this.id, name:this.name,ctime:new Date()};
+					this.list.push(car);
+					this.id = this.name = '';
+				},
+				del(id) {
+
+					// this.list.some((item,i)=>{
+					// 	if(item.id = id) {
+					// 		this.list.splice(i,1);
+					// 		return true;
+					// 	}
+					// })
+
+					var index = this.list.findIndex(item=>{
+						if(item.id==id){
+							return true;
+						}
+					})
+					this.list.splice(index,1);
+				},
+				search(keywords) {
+					// var newList = [];
+					// this.list.forEach(item=>{
+					// 	if(item.name.indexOf(keywords) != -1) {
+					// 		newList.push(item);
+					// 	}
+					// })
+					// return newList;
+					return  this.list.filter(item=>{
+						if(item.name.includes(keywords)){
+							return item;
+						}
+					})
+
+				}
+			},
+			filters:{
+				// dateFormat:(dateStr,pattern)=>{
+
+				// }
+			},
+			directives:{
+				'fontweight':{
+					bind(el,binding){
+
+					}
+				},
+				// 'fontsize':function(el,binding) {
+
+				// }
+				fontsize(el,binding) {
+					el.style.fontSize = '50px';
+				}
+			}
+		})
+	</script>
+</html>

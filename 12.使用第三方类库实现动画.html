@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="./dist/vue2.4.js"></script>
+<link rel="stylesheet" href="./dist/animate.css">
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="toggle" @click="flag=!flag">
+		<transition  enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{enter:200,leave:400}">
+			<h3 v-if="flag" class="animated">这是一个h3</h3>
+		</transition>
+	</div>
+</body>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				flag:false
+			},
+			methods:{},
+
+		})
+	</script>
+</html>

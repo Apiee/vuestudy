@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="./dist/vue2.4.js"></script>
+</head>
+<body>
+	<div id="app">
+
+	</div>
+</body>
+	<script>
+		var login = {
+			template:"<h1>这是登录组件</h1>"
+		}
+		var vm = new Vue({
+			el: '#app',
+			data:{
+
+			},
+			methods:{
+
+			},
+
+			//这个类似插值表达式 先占位
+			// components:{
+			// 	login
+			// }
+
+
+			//这个会替换容器里面的所有内容
+			render(createElements) {
+				return createElements(login)
+			}
+		})
+
+	</script>
+</html>

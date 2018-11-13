@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./dist/vue2.4.js"></script>
+<script src="./dist/vue-router.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- <a href="#/login">登录</a>
+		<a href="#/register">注册</a> -->
+
+		<router-link to="/login/12/baicai" tag="span">登录</router-link>
+		<router-link :to="{name:'register',params:{id:'1'}}" tag="span">注册</router-link>
+		<!-- <router-link :to="{name:'register',query:{id:'1'}}" tag="span">注册</router-link> -->
+		<router-view></router-view>
+	</div>
+</body>
+	<script>
+		//组件模板对象
+		var login = {
+			template:'<h1>登录组件</h1>'
+		}
+		var register = {
+
+			template:'<h1>注册组件</h1>'
+		}
+
+		/*$route为  当前router跳转对象  里面可以获取name、path、query、params等
+
+		$router为   VueRouter 实例，想要导航到不同URL，则使用$router.push方法
+
+		返回上一个history也是使用$router.go方法*/
+		var routerObj = new VueRouter({
+			routes:[
+				{path:'/',redirect:'/login'},
+				{path:'/login/:id/:name',component:login},
+				{name:'register',path:'/register/:id',component:register},
+				// {name:'register',path:'/register',component:register},
+				// 查询字符串方式传参 path不用改
+
+			],
+			// linkActiveClass:''
+		})
+
+		var vm = new Vue({
+			el: '#app',
+			data:{
+
+			},
+			methods:{
+
+			},
+			router:routerObj
+		})
+
+	</script>
+</html>

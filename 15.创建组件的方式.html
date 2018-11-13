@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./dist/vue2.4.js"></script>
+</head>
+<body>
+	<div id="app">
+		<mycom1></mycom1>
+		<mycom2></mycom2>
+		<mycom3></mycom3>
+		<login></login>
+
+	</div>
+	<template id="tmpl">
+		<div>
+			<h1>hello</h1>
+			<h2>world</h2>
+		</div>
+	</template>
+</body>
+	<script>
+
+		// var com1 = Vue.extend({
+		// 	template:"<h3>这是使用extend创建的组件</h3>"
+		// })
+
+		// Vue.component('myCom1',com1);
+		// Vue.component('mycom1',com1);
+		// 只能有唯一的根节点
+		// 1.创建和注册组件
+		// data是必须是一个方法,且要返回一个对象
+		Vue.component('mycom1',Vue.extend({
+			template:"<h3>这是使用extend创建的组件</h3>",
+			data() {
+				return {};
+			}
+		}));
+		//2.创建和注册组件
+		Vue.component('mycom2',{
+			template:"<h3>这是使用component创建的组件</h3>"
+		})
+		//3.
+		Vue.component('mycom3',{
+			template:"#tmpl"
+		})
+
+		var vm = new Vue({
+			el: '#app',
+			data:{
+
+			},
+			methods:{
+
+			},
+			components:{
+				login:{
+					template:'<h3>这是使用私有创建的组件</h3>'
+				}
+			}
+		})
+
+	</script>
+</html>

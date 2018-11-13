@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="./dist/vue2.4.js"></script>
+<style>
+	[v-cloak]{
+		display:none;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<p v-cloak>{{msg}}</p>
+		<h4 v-text="msg">==============</h4>
+		<h4 v-html="msg"></h4>
+		<!-- <input type="button" value="按钮" v-bind:title="mytitle + 123"> -->
+		<input type="button" value="按钮bind" :title="mytitle + 123">
+		<input type="button" value="按钮on"  v-on:click="show">
+		<input type="button" value="按钮on"  @click="show">
+		<input type="button" value="按钮on"  v-on:mouseover="show">
+	</div>
+</body>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data:{
+				msg:'<h1>11</h1>',
+				mytitle:'这是一个自定义title'
+			},
+			methods:{
+				show:function(){
+					alert('hello');
+				}
+			}
+		})
+
+	</script>
+</html>
